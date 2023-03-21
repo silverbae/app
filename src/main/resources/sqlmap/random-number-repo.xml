@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RandomNumberRepo">
+    <resultMap id="result" type="RandomNumberRepo">
+        <result property="timestamp" column="timestamp"/>
+        <result property="num" column="num"/>
+    </resultMap>
+    <resultMap id="timestamp" type="long">
+        <result property="timestamp" column="timestamp"/>
+    </resultMap>
+    <resultMap id="num" type="int">
+        <result property="num" column="num"/>
+    </resultMap>
+
+    <insert id="masterInsert" parameterType="RandomNumberRepo">
+        INSERT INTO RandomNumberRepo (timestamp, num)
+        VALUES (#{timestamp}, #{num})
+    </insert>
+
+    <select id="masterSelectAll" resultMap="result">
+        SELECT *
+        FROM RandomNumberRepo
+    </select>
+
+    <select id="masterSelectNumByTimestamp" parameterType="long" resultMap="result">
+        SELECT *
+        FROM RandomNumberRepo
+        WHERE timestamp > #{timestamp}
+    </select>
+
+    <select id="masterDeleteAll" resultMap="result">
+        DELETE
+        FROM RandomNumberRepo
+    </select>
+
+    <insert id="slaveInsert" parameterType="RandomNumberRepo">
+        INSERT INTO RandomNumberRepoSlave (timestamp, num)
+        VALUES (#{timestamp}, #{num})
+    </insert>
+
+    <select id="slaveSelectAll" resultMap="result">
+        SELECT *
+        FROM RandomNumberRepoSlave
+    </select>
+
+    <select id="slaveSelectLastTimestamp" resultMap="timestamp">
+        SELECT max(timestamp) as timestamp
+        FROM RandomNumberRepoSlave
+    </select>
+
+    <select id="slaveDeleteAll" resultMap="result">
+        DELETE
+        FROM RandomNumberRepoSlave
+    </select>
+</mapper>

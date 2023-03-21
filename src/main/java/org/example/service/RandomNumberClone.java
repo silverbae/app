@@ -1,9 +1,4 @@
-package org.example.application;
-
-import org.apache.log4j.Logger;
-import org.example.MyBatisConnectionFactory;
-import org.example.model.RandomNumberRepo;
-import org.example.persistence.RandomNumberDAO;
+package org.example.service;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,32 +6,29 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.apache.log4j.Logger;
+import org.example.MyBatisConnectionFactory;
+import org.example.mapper.RandomNumberDAO;
+import org.example.mapper.RandomNumberRepo;
 
 /**
  * 랜덤넘버 동기화(for slave) - master로 부터 전송받은 데이터를 동기화 시킨다.
  */
-public class RandomNumberClone {
+public class RandomNumberClone implements Runnable  {
 
   final static Logger log = Logger.getLogger("common");
-
-  private RandomNumberClone() {
-  }
-
-  public static RandomNumberClone getInstance() {
-    return LazyHolder.instance;
-  }
-
-  private static class LazyHolder {
-
-    private static final RandomNumberClone instance = new RandomNumberClone();
-  }
-
   private static final ExecutorService service = Executors.newSingleThreadExecutor();
 
+  public RandomNumberClone() {
+  }
+
+  @Override
   @SuppressWarnings("InfiniteLoopStatement")
-  public void _start() {
+  public void run() {
     RandomNumberDAO dao = new RandomNumberDAO(MyBatisConnectionFactory.getSqlSessionFactory());
 
     try (ServerSocket ss = new ServerSocket()) {
@@ -63,14 +55,19 @@ public class RandomNumberClone {
                 byte[] bufferTimestamp = {0, 0, 0, 0, 0, 0, 0, 0};
                 byte[] bufferNumber = {0, 0, 0, 0};
 
+                List<RandomNumberRepo> randomNumberRepos = new ArrayList<>();
+
                 while (recv.readNBytes(bufferTimestamp, 0, 8) > 0
                     && recv.readNBytes(bufferNumber, 0, 4) > 0) {
 
                   long ts = ByteBuffer.wrap(bufferTimestamp).getLong();
                   int num = ByteBuffer.wrap(bufferNumber).getInt();
 
-                  dao.slaveInsert(new RandomNumberRepo(ts, num));
+                  randomNumberRepos.add(new RandomNumberRepo(ts, num));
                 }
+
+                dao.slaveInserts(randomNumberRepos);
+
               } catch (Throwable e) {
                 e.printStackTrace();
               }
@@ -91,15 +88,5 @@ public class RandomNumberClone {
     }
   }
 
-  public void _stop() {
-    service.shutdown();
-  }
 
-  public static void start() {
-    getInstance()._start();
-  }
-
-  public static void stop() {
-    getInstance()._stop();
-  }
 }

@@ -1,14 +1,12 @@
-package org.example.model;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import org.example.MyBatisConnectionFactory;
-import org.example.persistence.RandomNumberDAO;
-
-import java.util.List;
+package org.example.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.example.MyBatisConnectionFactory;
 
 
 public class RandomNumberDAOTest extends EmbeddedMySql {

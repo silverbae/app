@@ -1,10 +1,8 @@
-package org.example.persistence;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.example.model.RandomNumberRepo;
+package org.example.mapper;
 
 import java.util.List;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 public class RandomNumberDAO {
 
@@ -62,12 +60,14 @@ public class RandomNumberDAO {
   /**
    * for slave
    **/
-  public void slaveInsert(RandomNumberRepo randomNumberRepo) {
+  public void slaveInserts(List<RandomNumberRepo> randomNumberRepos) {
 
     SqlSession session = sqlSessionFactory.openSession();
 
     try {
-      session.insert("RandomNumberRepo.slaveInsert", randomNumberRepo);
+      randomNumberRepos.forEach(
+          randomNumberRepo -> session.insert("RandomNumberRepo.slaveInsert", randomNumberRepo)
+      );
     } finally {
       session.commit();
       session.close();

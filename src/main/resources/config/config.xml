@@ -5,7 +5,7 @@
 
 <configuration>
     <typeAliases>
-        <typeAlias alias="RandomNumberRepo" type="org.example.model.RandomNumberRepo"/>
+        <typeAlias alias="RandomNumberRepo" type="org.solution.mapper.RandomNumberRepo"/>
     </typeAliases>
 
     <environments default="development">
@@ -14,7 +14,7 @@
             <!--  connecting to Local MySql -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://172.30.1.84:3306/test"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
                 <property name="username" value="admin"/>
                 <property name="password" value="admin"/>
             </dataSource>

@@ -1,15 +1,14 @@
-package org.example.model;
+package org.example.mapper;
 
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.config.MysqldConfig;
 import com.wix.mysql.config.SchemaConfig;
 import com.wix.mysql.distribution.Version;
+import java.time.ZoneId;
+import java.util.TimeZone;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-
-import java.time.ZoneId;
-import java.util.TimeZone;
 
 public class EmbeddedMySql {
 
@@ -29,8 +28,8 @@ public class EmbeddedMySql {
         .build();
 
     SchemaConfig.Builder schemaConfig = SchemaConfig.aSchemaConfig("test").withCommands("""
-        CREATE TABLE if not exists RandomNumberRepo(timestamp BIGINT, num INT);   
-        CREATE TABLE if not exists RandomNumberRepoSalve(timestamp BIGINT, num INT);   
+        CREATE TABLE if not exists RandomNumberRepo(timestamp BIGINT, num INT);
+        CREATE TABLE if not exists BOOK(id DOUBLE, name VARCHAR(20));        
         """);
     mySqlServer = EmbeddedMysql.anEmbeddedMysql(config).addSchema(schemaConfig.build()).start();
 

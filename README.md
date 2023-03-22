@@ -11,18 +11,27 @@ JVM: 19.0.2 (Oracle Corporation 19.0.2+7-44)
 ### mysql 실행
 ```
 mysql 실행
-$ docker run -itd --rm --name mysql -e TZ=Asia/Seoul -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DATABASE=test -p 3306:3306 mysql:8.0.32
+$ docker run -itd --rm --name mysql -e TZ=Asia/Seoul -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DATABASE=test -p 3306:3306 mysql:8.0.32
 
 테스트용 테이블 삽입
 $ docker exec -it mysql bash
 $ mysql -u admin --password=admin test -e 'CREATE TABLE if not exists RandomNumberRepo(timestamp BIGINT, num INT);'
 $ mysql -u admin --password=admin test -e 'CREATE TABLE if not exists RandomNumberRepoSlave(timestamp BIGINT, num INT);'
 ```
-
+### 설정
+{ip}는 localhost로 접속해서 안된다면, ifconfig en0의 ip입력
+```
+<dataSource type="POOLED">
+    <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://{ip}:3306/test"/>
+    <property name="username" value="admin"/>
+    <property name="password" value="admin"/>
+</dataSource>
+```
 ## 실행
 #### 1. master
 ```
-$ java -jar ./build/libs/app-1.0-SNAPSHOT.jar master
+$ java -jar ./build/libs/app-1.0.jar master
 ```
 
 #### 2. slave

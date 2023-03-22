@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import org.apache.log4j.Logger;
-import org.example.MyBatisConnectionFactory;
+import org.example.dao.MyBatisConnectionFactory;
 import org.example.mapper.RandomNumberDAO;
 import org.example.mapper.RandomNumberRepo;
 
@@ -33,6 +33,13 @@ public class RandomNumberSync implements Runnable  {
 
     // slave에 연결하여 현재 저장된 데이터의 최종 timestamp를 받는다.
     try (Socket c = new Socket()) {
+      Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+        try {
+          c.close();
+        } catch(Throwable ignored) {
+        }
+      }));
+
       c.connect(new InetSocketAddress("localhost", 9993));
 
       try (OutputStream send = c.getOutputStream(); InputStream recv = c.getInputStream()) {

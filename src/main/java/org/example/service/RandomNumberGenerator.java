@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.MyBatisConnectionFactory;
+import org.example.dao.MyBatisConnectionFactory;
 import org.example.mapper.RandomNumberDAO;
 import org.example.mapper.RandomNumberRepo;
 

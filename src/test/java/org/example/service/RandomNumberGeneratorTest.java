@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.example.MyBatisConnectionFactory;
+import org.example.dao.MyBatisConnectionFactory;
 import org.example.mapper.EmbeddedMySql;
 import org.example.mapper.RandomNumberDAO;
 import org.example.mapper.RandomNumberRepo;

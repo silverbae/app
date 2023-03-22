@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.log4j.Logger;
-import org.example.MyBatisConnectionFactory;
+import org.example.dao.MyBatisConnectionFactory;
 import org.example.mapper.RandomNumberDAO;
 import org.example.mapper.RandomNumberRepo;
 

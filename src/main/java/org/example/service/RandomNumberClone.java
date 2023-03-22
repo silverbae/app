@@ -93,5 +93,7 @@ public class RandomNumberClone implements Runnable  {
     } catch (Throwable e) {
       log.debug("error : " + e.getMessage());
     }
+
+    log.info("end");
   }
 }

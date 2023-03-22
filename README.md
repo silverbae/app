@@ -11,7 +11,7 @@ JVM: 19.0.2 (Oracle Corporation 19.0.2+7-44)
 ### mysql 실행
 ```
 mysql 실행
-$ docker run -itd --rm --name mysql -e TZ=Asia/Seoul -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=test -e MYSQL_PASSWORD=admin -p 3306:3306 mysql:8.0.32
+$ docker run -itd --rm --name mysql -e TZ=Asia/Seoul -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_USER=admin -e MYSQL_PASSWORD=admin -e MYSQL_DATABASE=test -p 3306:3306 mysql:8.0.32
 
 테스트용 테이블 삽입
 $ docker exec -it mysql bash

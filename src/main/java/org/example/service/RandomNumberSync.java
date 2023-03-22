@@ -18,7 +18,7 @@ import org.example.mapper.RandomNumberRepo;
  */
 public class RandomNumberSync implements Runnable  {
 
-  final static Logger log = Logger.getLogger("common");
+  final static Logger log = Logger.getLogger("org.example");
 
   public RandomNumberSync()  {
   }
@@ -56,7 +56,7 @@ public class RandomNumberSync implements Runnable  {
         }
       }
     } catch (Throwable e) {
-      e.printStackTrace();
+      log.debug("error : " + e.getMessage());
     }
   }
 }

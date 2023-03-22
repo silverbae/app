@@ -20,7 +20,7 @@ import org.example.mapper.RandomNumberRepo;
  */
 public class RandomNumberClone implements Runnable  {
 
-  final static Logger log = Logger.getLogger("common");
+  final static Logger log = Logger.getLogger("org.example");
   private static final ExecutorService service = Executors.newSingleThreadExecutor();
 
   public RandomNumberClone() {
@@ -69,24 +69,21 @@ public class RandomNumberClone implements Runnable  {
                 dao.slaveInserts(randomNumberRepos);
 
               } catch (Throwable e) {
-                e.printStackTrace();
+                log.debug("error : " + e.getMessage());
               }
             } catch (Throwable e) {
-              e.printStackTrace();
+              log.debug("error : " + e.getMessage());
             }
 
             log.debug("disconnected(" + s.getInetAddress() + ")");
           });
 
         } catch (Throwable e) {
-          // 에러 발생시 콘솔 출력
-          e.printStackTrace();
+          log.debug("error : " + e.getMessage());
         }
       }
     } catch (Throwable e) {
-      e.printStackTrace();
+      log.debug("error : " + e.getMessage());
     }
   }
-
-
 }

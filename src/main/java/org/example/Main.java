@@ -15,7 +15,7 @@ public class Main {
   private static final ScheduledExecutorService randomGenService = Executors.newSingleThreadScheduledExecutor();
   private static final ScheduledExecutorService randomSyncService = Executors.newSingleThreadScheduledExecutor();
   private static final ExecutorService randomCloneService = Executors.newSingleThreadExecutor();
-  final static Logger log = Logger.getLogger("common");
+  final static Logger log = Logger.getLogger("org.example");
 
   private static String getMode(String[] args) {
     if (args.length > 0 && args[0].equals("slave")) {

@@ -29,7 +29,7 @@ public class EmbeddedMySql {
 
     SchemaConfig.Builder schemaConfig = SchemaConfig.aSchemaConfig("test").withCommands("""
         CREATE TABLE if not exists RandomNumberRepo(timestamp BIGINT, num INT);
-        CREATE TABLE if not exists BOOK(id DOUBLE, name VARCHAR(20));        
+        CREATE TABLE if not exists RandomNumberRepoClone(timestamp BIGINT, num INT);
         """);
     mySqlServer = EmbeddedMysql.anEmbeddedMysql(config).addSchema(schemaConfig.build()).start();
 

@@ -22,20 +22,28 @@ public class RandomNumberClone implements Runnable  {
 
   final static Logger log = Logger.getLogger("org.example");
   private static final ExecutorService service = Executors.newSingleThreadExecutor();
+  private boolean isRunning = true;
 
   public RandomNumberClone() {
   }
 
   @Override
-  @SuppressWarnings("InfiniteLoopStatement")
   public void run() {
     RandomNumberDAO dao = new RandomNumberDAO(MyBatisConnectionFactory.getSqlSessionFactory());
 
     try (ServerSocket ss = new ServerSocket()) {
 
+      Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+        try {
+          isRunning = false;
+          ss.close();
+        } catch(Throwable ignored) {
+        }
+      }));
+
       ss.bind(new InetSocketAddress(9993));
 
-      while (true) {
+      while (isRunning) {
         try {
           Socket s = ss.accept();
 

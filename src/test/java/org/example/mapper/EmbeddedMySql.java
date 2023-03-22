@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 public class EmbeddedMySql {
 
-  final static Logger log = Logger.getLogger("common");
+  final static Logger log = Logger.getLogger("org.example");
 
   static EmbeddedMysql mySqlServer = null;
 

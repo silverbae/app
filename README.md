@@ -1,7 +1,7 @@
 ## 빌드
 ```
-$ gradle clean
-$ gradle jar
+$ ./gradlew clean
+$ ./gradlew jar
 ```
 
 ## 실행환경 구성
@@ -10,7 +10,7 @@ JVM: 19.0.2 (Oracle Corporation 19.0.2+7-44)
 
 ### mysql 실행
 ```
-mysql 실행[update.patch](..%2F..%2FDownloads%2Fupdate.patch)
+mysql 실행
 $ docker run -itd --rm --name mysql -e TZ=Asia/Seoul -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=test -e MYSQL_PASSWORD=1234 -p 3306:3306 mysql:8.0.32
 
 테스트용 테이블 삽입

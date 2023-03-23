@@ -19,7 +19,7 @@ $ mysql -u admin --password=admin test -e 'CREATE TABLE if not exists RandomNumb
 $ mysql -u admin --password=admin test -e 'CREATE TABLE if not exists RandomNumberRepoSlave(timestamp BIGINT, num INT);'
 ```
 ### 설정
-{ip}는 localhost로 접속해서 안된다면, ifconfig en0의 ip입력
+{ip}는 localhost로 접속해서 안된다면, ifconfig 확인한 후 ip입력
 ```
 <dataSource type="POOLED">
     <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
